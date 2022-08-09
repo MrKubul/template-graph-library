@@ -5,12 +5,20 @@
 
 class EdgeTest : public ::testing::Test {
  protected:
-  Edge<int> edgeInt = Edge<int>(10, 1, 7312);
-  Edge<float> edgeFloat = Edge<float>(10, 2, 4.2);
-  Edge<char> edgeChar = Edge<char>(10, 3, 'a');
-  Edge<std::string> edgeString = Edge<std::string>(10, 4, "testing_string");
-  Edge<bool> edgeBool = Edge<bool>(10, 5, true);
+  int srcPlaceHolder = 10;
+  Edge<int> edgeInt_operator_first = Edge<int>(srcPlaceHolder, 1, 7312);
+  Edge<int> edgeInt_operator_second = Edge<int>(srcPlaceHolder, 1, 789);
+  Edge<int> edgeInt = Edge<int>(srcPlaceHolder, 1, 7312);
+  Edge<float> edgeFloat = Edge<float>(srcPlaceHolder, 2, 4.2);
+  Edge<char> edgeChar = Edge<char>(srcPlaceHolder, 3, 'a');
+  Edge<std::string> edgeString = Edge<std::string>(srcPlaceHolder, 4, "testing_string");
+  Edge<bool> edgeBool = Edge<bool>(srcPlaceHolder, 5, true);
 };
+
+TEST_F(EdgeTest, OperatorsTest) {
+   EXPECT_TRUE(edgeInt_operator_first == edgeInt);
+   EXPECT_TRUE(!(edgeInt == edgeInt_operator_second));
+}
 
 TEST_F(EdgeTest, GettersTest) {
   EXPECT_EQ(edgeInt.getDestinationID(), 1);
@@ -52,8 +60,8 @@ TEST_F(EdgeTest, SettersTest)
 TEST_F(EdgeTest, VisitedToggling) 
 { 
    EXPECT_EQ(edgeInt.isVisited(), false);
-   edgeInt.setVisitedTrue();
+   edgeInt.setVisited();
    EXPECT_EQ(edgeInt.isVisited(), true);
-   edgeInt.setVisitedFalse();
+   edgeInt.setNotVisited();
    EXPECT_EQ(edgeInt.isVisited(), false);
 }

@@ -8,8 +8,8 @@ class Edge
     private:
         unsigned int sourceVertexID;
 	    unsigned int destinationVertexID;
-	    T_edge weight;
 	    bool visited = false;
+        T_edge weight;
 
     public:
         friend bool operator==(const Edge<T_edge>& lhs, const Edge<T_edge>& rhs)   
@@ -44,22 +44,20 @@ class Edge
             return visited;
         }
 
-        void setVisitedTrue()
+        void setVisited()
         {
             visited = true;
         }
 
-        void setVisitedFalse()
+        void setNotVisited()
         {
             visited = false;
         }
 
-        Edge(int srcID, int destID, const T_edge &w) 
-        {
-            sourceVertexID = srcID;
-            destinationVertexID = destID;
-            weight = w;
-        }
+        Edge(int srcID, int destID, const T_edge &w)
+        : sourceVertexID(srcID), 
+          destinationVertexID(destID), 
+          weight(w) {}
 
         ~Edge()
         {

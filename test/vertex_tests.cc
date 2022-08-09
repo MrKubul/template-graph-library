@@ -5,12 +5,19 @@
 
 class VertexTest : public ::testing::Test {
  protected:
+  Vertex<int, int> vertexInt_first = Vertex<int, int>(1, 33);
+  Vertex<int, int> vertexInt_second = Vertex<int, int>(776, 7312);
   Vertex<int, int> vertexInt = Vertex<int, int>(1, 7312);
   Vertex<float, float> vertexFloat = Vertex<float, float>(2, 4.2f);
   Vertex<char, char> vertexChar = Vertex<char, char>(3, 'a');
   Vertex<std::string, std::string> vertexString = Vertex<std::string, std::string>(4, "string-testing-purposes");
   Vertex<bool, bool> vertexBool = Vertex<bool, bool>(5, true);
 };
+
+TEST_F(VertexTest, OperatorsTest) {
+   EXPECT_TRUE(vertexInt_first == vertexInt);
+   EXPECT_TRUE(!(vertexInt == vertexInt_second));
+}
 
 TEST_F(VertexTest, GettersTest) {
   EXPECT_EQ(vertexInt.getID(), 1);

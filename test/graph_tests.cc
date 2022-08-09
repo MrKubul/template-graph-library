@@ -2,8 +2,6 @@
 #include <string>
 #include "../src/Graph.hpp"
 
-//test kazdego ecxeption
-
 class GraphTest : public ::testing::Test {
  protected:
   Graph<int, int> test_graph_1 = Graph<int, int>();

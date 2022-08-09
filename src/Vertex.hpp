@@ -10,8 +10,8 @@ class Vertex
 {
     private:
         unsigned int ID;
-        T_vertex value;   
         bool visited;
+        T_vertex value;   
         std::list<Edge<T_edge>> edgeList;        
                 
     public:
@@ -25,7 +25,7 @@ class Vertex
             return ID;
         }
 
-        T_vertex getValue()
+        T_vertex getValue() const
         {
             return value;
         }
@@ -50,16 +50,8 @@ class Vertex
             edgeList.remove(edge);
         }
 
-        Vertex()
-        {
-
-        }
-
         Vertex(int initial_ID, const T_vertex &initial_value)
-        {
-            ID = initial_ID;
-            value = initial_value;
-        }
+        : ID(initial_ID), value(initial_value) {}
 
         ~Vertex()
         {
