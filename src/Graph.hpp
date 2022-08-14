@@ -12,44 +12,100 @@ class Graph
     std::vector<Vertex<T_edge, T_vertex>> vertices;
 
     public:
-    bool checkIfVertexExists(int vertexID)
+    void addEdge(int fromID, int towardsID, const T_edge &weight);
+    bool checkIfEdgeExists(int fromID, int towardsID);
+    void addVertex(const Vertex<T_edge, T_vertex> &newVertex);
+    bool checkIfVertexExists(int vertexID);
+    T_edge getEdgeWeight(int fromID, int towardsID);
+    Edge<T_edge>* getEdgeByID(int fromID, int towardsID);
+    void updateEdgeByID(int fromID, int towardsID, const T_edge &newWeight);
+    void eraseEdgeByID(int fromID, int towardsID);
+    void deleteVertexByID(int deleteID);
+    Vertex<T_edge, T_vertex>* getVertexByID(int ID);
+    void updateVertex(int updateID, const T_vertex &value);
+    std::vector<Vertex<T_edge, T_vertex>> getVertices();
+    Graph();
+    Graph(const std::vector<Vertex<T_edge, T_vertex>> &initial_vertices);
+};
+
+template<typename T_edge, typename T_vertex> 
+void Graph<T_edge, T_vertex>::addEdge(int fromID, int towardsID, const T_edge &weight)
+{
+    if (checkIfVertexExists(fromID) && checkIfVertexExists(towardsID))
     {
-        bool vertexFound = false;
-        for(const auto& vertex: vertices)
+        if(checkIfEdgeExists(fromID, towardsID))
         {
-            if(vertex.getID() == vertexID)
+            throw std::invalid_argument( "Edge already exist" );
+        }
+        else 
+        {
+            Vertex<T_edge, T_vertex>* vertex = getVertexByID(fromID);
+            Edge<T_edge> e = Edge<T_edge>(fromID, towardsID, weight);
+            vertex->addToEdgeList(e);
+        }
+    }
+    else
+    {
+        throw std::invalid_argument( "One of the vertices doesn't exist" );
+    }
+}
+
+template<typename T_edge, typename T_vertex> 
+bool Graph<T_edge, T_vertex>::checkIfEdgeExists(int fromID, int towardsID)
+{
+    for(auto &vertex: vertices)
+    {
+        if(vertex.getID() == fromID)
+        {
+            for(auto &edge: vertex.getEdgeList())
             {
-                vertexFound = true;
-            }
-        }   
-        return vertexFound;
-    }
-
-    void addVertex(const Vertex<T_edge, T_vertex> &newVertex)
-    {
-        if(checkIfVertexExists(newVertex.getID()))
-        {
-            throw std::invalid_argument( "Vertex already is already in the graph" );
-        }
-        else
-        {
-            vertices.push_back(newVertex);
-        }
-    }
-
-    Vertex<T_edge, T_vertex>* getVertexByID(int ID)
-    {
-        for(auto &vertex: vertices)
-        {
-            if(vertex.getID() == ID)
-            {
-                return &vertex;
+                if(edge.getDestinationID() == towardsID)
+                {
+                    return true;
+                }
             }
         }
-        throw std::invalid_argument( "Vertex not found" );
     }
+    return false;
+}
 
-    bool checkIfEdgeExists(int fromID, int towardsID)
+template<typename T_edge, typename T_vertex> 
+void Graph<T_edge, T_vertex>::addVertex(const Vertex<T_edge, T_vertex> &newVertex)
+{
+    if(checkIfVertexExists(newVertex.getID()))
+    {
+        throw std::invalid_argument( "Vertex already is already in the graph" );
+    }
+    else
+    {
+        vertices.push_back(newVertex);
+    }
+}
+
+template<typename T_edge, typename T_vertex> 
+bool Graph<T_edge, T_vertex>::checkIfVertexExists(int vertexID)
+{
+    bool vertexFound = false;
+    for(const auto& vertex: vertices)
+    {
+        if(vertex.getID() == vertexID)
+        {
+            vertexFound = true;
+        }
+    }   
+    return vertexFound;
+}
+
+template<typename T_edge, typename T_vertex> 
+T_edge Graph<T_edge, T_vertex>::getEdgeWeight(int fromID, int towardsID)
+{
+    return getEdgeByID(fromID, towardsID)->getWeight();
+}
+
+template<typename T_edge, typename T_vertex> 
+Edge<T_edge>* Graph<T_edge, T_vertex>::getEdgeByID(int fromID, int towardsID)
+{
+    if(checkIfEdgeExists(fromID, towardsID))
     {
         for(auto &vertex: vertices)
         {
@@ -59,133 +115,101 @@ class Graph
                 {
                     if(edge.getDestinationID() == towardsID)
                     {
-                        return true;
+                        return &edge;
                     }
                 }
             }
         }
-        return false;
     }
+    else throw std::invalid_argument( "Edge doesn't exist" );
+    return NULL;
+}
 
-    void addEdge(int fromID, int towardsID, const T_edge &weight)
-    {
-        if (checkIfVertexExists(fromID) && checkIfVertexExists(towardsID))
+template<typename T_edge, typename T_vertex> 
+void Graph<T_edge, T_vertex>::updateEdgeByID(int fromID, int towardsID, const T_edge &newWeight)
+{
+    getEdgeByID(fromID, towardsID)->setWeight(newWeight);
+}
+
+template<typename T_edge, typename T_vertex> 
+void Graph<T_edge, T_vertex>::eraseEdgeByID(int fromID, int towardsID)
+{
+    for(auto &vertex: vertices)
         {
-            if(checkIfEdgeExists(fromID, towardsID))
+            if(vertex.getID() == fromID)
             {
-                throw std::invalid_argument( "Edge already exist" );
-            }
-            else 
-            {
-                Vertex<T_edge, T_vertex>* vertex = getVertexByID(fromID);
-                Edge<T_edge> e = Edge<T_edge>(fromID, towardsID, weight);
-                vertex->addToEdgeList(e);
+                vertex.removeFromEdgeList(*getEdgeByID(fromID, towardsID));
+                return;
             }
         }
-        else
-        {
-            throw std::invalid_argument( "One of the vertices doesn't exist" );
-        }
-    }
+    throw std::invalid_argument( "Edge doesn't exist" );
+}
 
-    Edge<T_edge>* getEdgeByID(int fromID, int towardsID)
-    {
-        if(checkIfEdgeExists(fromID, towardsID))
+template<typename T_edge, typename T_vertex> 
+void Graph<T_edge, T_vertex>::deleteVertexByID(int deleteID)
+{
+    Vertex<T_edge, T_vertex>* vertToDelete = getVertexByID(deleteID);
+    (vertToDelete->getEdgeList()).clear();
+    vertices.erase(std::remove(vertices.begin(), vertices.end(), (*vertToDelete)), vertices.end());
+
+    for(auto& vertex: vertices)
+    {   
+        for(auto& edge: vertex.getEdgeList())
         {
-            for(auto &vertex: vertices)
+            if(edge.getDestinationID() == deleteID)
             {
-                if(vertex.getID() == fromID)
-                {
-                    for(auto &edge: vertex.getEdgeList())
-                    {
-                        if(edge.getDestinationID() == towardsID)
-                        {
-                            return &edge;
-                        }
-                    }
-                }
+                vertex.removeFromEdgeList(edge);
             }
         }
-        else throw std::invalid_argument( "Edge doesn't exist" );
-        return NULL;
     }
+}
 
-    T_edge getEdgeWeight(int fromID, int towardsID)
+template<typename T_edge, typename T_vertex> 
+Vertex<T_edge, T_vertex>* Graph<T_edge, T_vertex>::getVertexByID(int ID)
+{
+    for(auto &vertex: vertices)
     {
-        return getEdgeByID(fromID, towardsID)->getWeight();
+        if(vertex.getID() == ID)
+        {
+            return &vertex;
+        }
     }
+    throw std::invalid_argument( "Vertex not found" );
+}
 
-    void eraseEdgeByID(int fromID, int towardsID)
+template<typename T_edge, typename T_vertex> 
+void Graph<T_edge, T_vertex>::updateVertex(int updateID, const T_vertex &value)
+{
+    bool checkVertex = checkIfVertexExists(updateID);
+    if(checkVertex)
     {
-        for(auto &vertex: vertices)
-            {
-                if(vertex.getID() == fromID)
-                {
-                    vertex.removeFromEdgeList(*getEdgeByID(fromID, towardsID));
-                    return;
-                }
-            }
-        throw std::invalid_argument( "Edge doesn't exist" );
-    }
-
-    void updateEdgeByID(int fromID, int towardsID, const T_edge &newWeight)
-    {
-        getEdgeByID(fromID, towardsID)->setWeight(newWeight);
-    }
-
-    void deleteVertexByID(int deleteID)
-    {
-        Vertex<T_edge, T_vertex>* vertToDelete = getVertexByID(deleteID);
-        (vertToDelete->getEdgeList()).clear();
-        vertices.erase(std::remove(vertices.begin(), vertices.end(), (*vertToDelete)), vertices.end());
-
         for(auto& vertex: vertices)
-        {   
-            for(auto& edge: vertex.getEdgeList())
+        {
+            if(vertex.getID() == updateID)
             {
-                if(edge.getDestinationID() == deleteID)
-                {
-                    vertex.removeFromEdgeList(edge);
-                }
+                vertex.setValue(value);
+                break;
             }
         }
     }
-
-    void updateVertex(int updateID, const T_vertex &value)
+    else
     {
-        bool checkVertex = checkIfVertexExists(updateID);
-        if(checkVertex)
-        {
-            for(auto& vertex: vertices)
-            {
-                if(vertex.getID() == updateID)
-                {
-                    vertex.setValue(value);
-                    break;
-                }
-            }
-        }
-        else
-        {
-            throw std::invalid_argument( "Vertex not found" );
-        }
+        throw std::invalid_argument( "Vertex not found" );
     }
+}
 
-    std::vector<Vertex<T_edge, T_vertex>> getVertices()
-    {
-        return vertices;
-    }
+template<typename T_edge, typename T_vertex> 
+std::vector<Vertex<T_edge, T_vertex>> Graph<T_edge, T_vertex>::getVertices()
+{
+    return vertices;
+}
 
-    Graph()
-    {
+template<typename T_edge, typename T_vertex> 
+Graph<T_edge, T_vertex>::Graph()
+{
 
-    }
+}
 
-    Graph(const std::vector<Vertex<T_edge, T_vertex>> &initial_vertices)
-    : vertices(initial_vertices) {}
-
-    ~Graph()
-    {
-
-    }
-};
+template<typename T_edge, typename T_vertex> 
+Graph<T_edge, T_vertex>::Graph(const std::vector<Vertex<T_edge, T_vertex>> &initial_vertices)
+: vertices(initial_vertices) {};
