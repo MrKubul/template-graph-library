@@ -10,11 +10,11 @@ FetchContent_Declare(
   GIT_TAG release-1.12.1
 )
 
-add_executable(grafy src/main.cpp src/Graph.hpp src/Vertex.hpp src/Edge.hpp src/BinaryTree.hpp src/Node.hpp)
+add_executable(grafy src/main.cpp src/Graph.hpp src/Vertex.hpp src/Edge.hpp src/BinarySearchTree.hpp src/Node.hpp)
 
 enable_testing()
 
-add_executable(test_set test/edge_tests.cc test/vertex_tests.cc test/graph_tests.cc test/bst_tests.cc)
+add_executable(test_set test/edge_tests.cc test/vertex_tests.cc test/graph_tests.cc test/binary_search_tree_tests.cc)
 
 
 find_package(GTest)
