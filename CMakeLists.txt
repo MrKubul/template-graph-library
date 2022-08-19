@@ -1,7 +1,10 @@
 cmake_minimum_required(VERSION 3.10)
-project(web-graps-for-you)
+project(mentoring-project)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
+SET(GCC_COVERAGE_COMPILE_FLAGS "-Wall -Wextra --pedantic -std=c++17")
+
+add_definitions(${GCC_COVERAGE_COMPILE_FLAGS})
 
 include(FetchContent)
 FetchContent_Declare(
@@ -10,12 +13,12 @@ FetchContent_Declare(
   GIT_TAG release-1.12.1
 )
 
-add_executable(grafy src/main.cpp src/Graph.hpp src/Vertex.hpp src/Edge.hpp src/BinarySearchTree.hpp src/Node.hpp)
+
+add_executable(grafy src/main.cpp src/graph/Graph.hpp src/graph/Vertex.hpp src/graph/Edge.hpp src/graph/BinarySearchTree.hpp src/graph/Node.hpp)
+set_target_properties(grafy PROPERTIES LINKER_LANGUAGE CXX)
+add_executable(test_set test/graph/edge_tests.cpp test/graph/vertex_tests.cpp test/graph/graph_tests.cpp test/graph/binary_search_tree_tests.cpp)
 
 enable_testing()
-
-add_executable(test_set test/edge_tests.cc test/vertex_tests.cc test/graph_tests.cc test/binary_search_tree_tests.cc)
-
 
 find_package(GTest)
 

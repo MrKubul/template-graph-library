@@ -1,5 +1,7 @@
 #pragma once
 
+#include "VisitingOperations.hpp"
+
 // Edge of weighted graph
 
 template <typename T_edge>
@@ -8,7 +10,7 @@ class Edge
     private:
         unsigned int sourceVertexID;
 	    unsigned int destinationVertexID;
-	    bool visited = false;
+	    VisitingOperations visitedStatus;
         T_edge weight;
 
     public:
@@ -18,9 +20,6 @@ class Edge
         T_edge getWeight() const;
         void setDestinationID(int dest_id);
         int getDestinationID() const;
-        bool isVisited();
-        void setVisited();
-        void setNotVisited();
         Edge(int srcID, int destID, const T_edge &w);
 };
 
@@ -57,26 +56,6 @@ int Edge<T_edge>::getDestinationID() const
 }
 
 template <typename T_edge>
-bool Edge<T_edge>::isVisited()
-{
-    return visited;
-}
-
-template <typename T_edge>
-void Edge<T_edge>::setVisited()
-{
-    visited = true;
-}
-
-template <typename T_edge>
-void Edge<T_edge>::setNotVisited()
-{
-    visited = false;
-}
-
-template <typename T_edge>
 Edge<T_edge>::Edge(int srcID, int destID, const T_edge &w)
-: sourceVertexID(srcID), 
-    destinationVertexID(destID), 
-    weight(w) {};
+: sourceVertexID(srcID), destinationVertexID(destID), weight(w) {}
 

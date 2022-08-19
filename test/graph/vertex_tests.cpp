@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <string>
-#include "../src/Vertex.hpp"
+#include "../../src/graph/Vertex.hpp"
 
 
 class VertexTest : public ::testing::Test {

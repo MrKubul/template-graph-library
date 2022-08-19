@@ -168,7 +168,7 @@ void BinarySearchTree<T_node>::remove(Node<T_node>* rootNode, T_node valueToRemo
         y->parent->right = x;
     if(y != targetNode)
         targetNode->setValue(y->getValue());
-        delete y;
+    delete y;
 }
 
 template<typename T_node>
@@ -194,6 +194,6 @@ void BinarySearchTree<T_node>::deleteTree(Node<T_node> *node)
 
 template<typename T_node>
 BinarySearchTree<T_node>::~BinarySearchTree()
-{
-    
+{   
+    if(treeSize > 0) deleteTree();
 }

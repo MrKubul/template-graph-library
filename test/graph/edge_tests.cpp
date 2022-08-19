@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <string>
-#include "../src/Edge.hpp"
+#include "../../src/graph/Edge.hpp"
 
 
 class EdgeTest : public ::testing::Test {

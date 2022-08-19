@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <string>
-#include "../src/BinarySearchTree.hpp"
+#include "../../src/graph/BinarySearchTree.hpp"
 
 class BinarySearchTreeTest : public ::testing::Test {
  protected:
@@ -19,7 +19,8 @@ TEST_F(BinarySearchTreeTest, SettingRoot)
   Node<int>* newRoot = new Node<int>(350, 1);
   test_tree_1.setRoot(newRoot);
   EXPECT_EQ(test_tree_1.getRoot(), newRoot);
-  test_tree_1.deleteTree();
+
+  delete newRoot;
 }
 
 TEST_F(BinarySearchTreeTest, SearchingTree) 
@@ -31,7 +32,7 @@ TEST_F(BinarySearchTreeTest, SearchingTree)
   EXPECT_TRUE(!(test_tree_1.search(450)));
 
   delete fakeNode;
-  test_tree_1.deleteTree();
+  delete newRoot;
 }
 
 TEST_F(BinarySearchTreeTest, InsertingIntoTree) 
@@ -53,8 +54,6 @@ TEST_F(BinarySearchTreeTest, InsertingIntoTree)
   EXPECT_TRUE(test_tree_2.search("second-node"));
   EXPECT_TRUE(test_tree_2.search("third-node"));
   EXPECT_FALSE(test_tree_2.search("fourth-node"));
-  test_tree_2.deleteTree();
-  test_tree_1.deleteTree();
 }
 
 TEST_F(BinarySearchTreeTest, RemovingFormTree) 
@@ -77,7 +76,6 @@ TEST_F(BinarySearchTreeTest, RemovingFormTree)
   EXPECT_TRUE(test_tree_2.search("third-node"));
   EXPECT_FALSE(test_tree_2.search("fourth-node"));
 
-  test_tree_2.deleteTree();
 }
 
 TEST_F(BinarySearchTreeTest, DeletingTree) 

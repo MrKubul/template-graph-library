@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <string>
-#include "../src/Graph.hpp"
+#include "../../src/graph/Graph.hpp"
 
 class GraphTest : public ::testing::Test {
  protected:

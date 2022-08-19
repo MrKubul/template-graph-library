@@ -1,3 +1,7 @@
+#pragma once
+
+#include "VisitingOperations.hpp"
+
 // Node of Binary search tree
 
 template<typename T_node>
@@ -6,6 +10,7 @@ class Node
     private:
         T_node value;
         int ID;
+        VisitingOperations visitedStatus;
     public:
         Node<T_node> *left = nullptr, *right = nullptr, *parent = nullptr;
         Node(const T_node &initialValue,  int initialID);

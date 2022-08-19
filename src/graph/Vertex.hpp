@@ -1,7 +1,8 @@
 #pragma once
 
-#include <list>
+#include <list> //TODO change it to my custom made list implemenatation
 #include "Edge.hpp"
+#include "VisitingOperations.hpp"
 
 // Vertex of weighted graph
 
@@ -10,7 +11,7 @@ class Vertex
 {
     private:
         unsigned int ID;
-        bool visited;
+        VisitingOperations visitedStatus;
         T_vertex value;   
         std::list<Edge<T_edge>> edgeList;        
                 
@@ -70,4 +71,4 @@ void Vertex<T_edge, T_vertex>::removeFromEdgeList(const Edge<T_edge> &edge)
 
 template<typename T_edge, typename T_vertex>
 Vertex<T_edge, T_vertex>::Vertex(int initial_ID, const T_vertex &initial_value)
-: ID(initial_ID), value(initial_value) {};
+: ID(initial_ID), value(initial_value) {}
