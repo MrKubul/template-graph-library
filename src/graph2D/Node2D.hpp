@@ -6,5 +6,5 @@
 template<typename T_edge, typename T_vertex> 
 class Node2D : public Node, public Structure2D
 {
-    //to fill
+
 };

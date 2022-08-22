@@ -3,10 +3,8 @@
 #include "./graph/Graph.hpp"
 #include "Vertex2D.hpp"
 
-//Check if all methods work properly with 2D type
-
 template<typename T_edge, typename T_vertex>   
-class Graph2D : public Graph
+class Graph2D : public Graph, public Structure2D
 {
 private:
     std::vector<Vertex2D<T_edge, T_vertex>> vertices;

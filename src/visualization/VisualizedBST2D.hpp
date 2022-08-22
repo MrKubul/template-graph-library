@@ -1,4 +1,10 @@
-//derive from bst2D
+#pragma once
 
-//will be used to run algorithms with more parameters, help to visualize steps of algorithms
-//only algorithms have to be overriiden, add wait_step param, idk...
+#include "./graph2D/BinarySearchTree2D.hpp"
+
+
+template<typename T_node>
+class VisualizedBinarySearchTree2D : public BinarySearchTree2D
+{
+
+};
