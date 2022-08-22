@@ -1,8 +1,7 @@
 #pragma once
 
-#include <list> //TODO change it to my custom made list implemenatation
+#include <list> 
 #include "Edge.hpp"
-#include "VisitingOperations.hpp"
 
 // Vertex of weighted graph
 
@@ -11,13 +10,13 @@ class Vertex
 {
     private:
         unsigned int ID;
-        VisitingOperations visitedStatus;
         T_vertex value;   
         std::list<Edge<T_edge>> edgeList;        
                 
     public:
         template<typename T_operatorEdge, typename T_operatorVertex>
         friend bool operator==(const Vertex<T_operatorEdge, T_operatorVertex>& lhs, const Vertex<T_operatorEdge, T_operatorVertex>& rhs);
+        UnitVisitingOperations visitedStatus;
         int getID() const;
         T_vertex getValue() const;
         void setValue(const T_vertex &given_value);

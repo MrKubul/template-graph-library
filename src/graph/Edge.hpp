@@ -1,6 +1,6 @@
 #pragma once
 
-#include "VisitingOperations.hpp"
+#include "UnitVisitingOperations.hpp"
 
 // Edge of weighted graph
 
@@ -10,12 +10,12 @@ class Edge
     private:
         unsigned int sourceVertexID;
 	    unsigned int destinationVertexID;
-	    VisitingOperations visitedStatus;
         T_edge weight;
 
     public:
         template <typename T_operator>
         friend bool operator==(const Edge<T_operator>& lhs, const Edge<T_operator>& rhs);
+        UnitVisitingOperations visitedStatus;
         void setWeight(const T_edge &value);
         T_edge getWeight() const;
         void setDestinationID(int dest_id);

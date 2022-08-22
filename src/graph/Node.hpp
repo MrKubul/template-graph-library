@@ -1,6 +1,6 @@
 #pragma once
 
-#include "VisitingOperations.hpp"
+#include "UnitVisitingOperations.hpp"
 
 // Node of Binary search tree
 
@@ -10,9 +10,9 @@ class Node
     private:
         T_node value;
         int ID;
-        VisitingOperations visitedStatus;
     public:
         Node<T_node> *left = nullptr, *right = nullptr, *parent = nullptr;
+        UnitVisitingOperations visitedStatus;
         Node(const T_node &initialValue,  int initialID);
         T_node getValue() const;
         void setValue(const T_node &val);

@@ -1,6 +1,6 @@
 #include "Node.hpp" 
 
-// Binary search tree
+// weighted Binary search tree
 
 template<typename T_node>
 class BinarySearchTree
