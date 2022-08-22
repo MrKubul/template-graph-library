@@ -4,147 +4,414 @@
 
 class GraphTest : public ::testing::Test {
  protected:
-  Graph<int, int> test_graph_1 = Graph<int, int>();
-  Graph<std::string, std::string> test_graph_2 = Graph<std::string, std::string>();
-  Graph<float, float> test_graph_3 = Graph<float, float>();
+
 };
 
-TEST_F(GraphTest, CheckingVertexExistance)
-{ 
-   Vertex<int, int> test_vertex_1 = Vertex<int, int>(1, 18);
-   Vertex<int, int > test_vertex_2 = Vertex<int, int>(2, 9);
-   Vertex<int, int> test_vertex_3 = Vertex<int, int>(3, 33);
+class IntGraphTest : public ::testing::Test {
+ protected:
+  Graph<int, int> simple_int_graph = Graph<int, int>();
+  Graph<int, int> complex_int_graph = Graph<int, int>();
 
-   test_graph_1.addVertex(test_vertex_1);
-   test_graph_1.addVertex(test_vertex_2);
-   test_graph_1.addVertex(test_vertex_3);
+  void SetUp() override
+  {
+      Vertex<int, int> int_vertex_1 = Vertex<int, int>(1, 1);
+      Vertex<int, int > int_vertex_2 = Vertex<int, int>(2, 2);
+      Vertex<int, int> int_vertex_3 = Vertex<int, int>(3, 3);
+      Vertex<int, int> int_vertex_4 = Vertex<int, int>(4, 4);
+      Vertex<int, int > int_vertex_5 = Vertex<int, int>(5, 5);
+      Vertex<int, int> int_vertex_6 = Vertex<int, int>(6, 6);
+      Vertex<int, int> int_vertex_7 = Vertex<int, int>(7, 7);
+      Vertex<int, int > int_vertex_8 = Vertex<int, int>(8, 8);
+      Vertex<int, int> int_vertex_9 = Vertex<int, int>(9, 9);
+      Vertex<int, int > int_vertex_10 = Vertex<int, int>(10, 10);
 
-   EXPECT_EQ(test_graph_1.checkIfVertexExists(1), true );
-   EXPECT_EQ(test_graph_1.checkIfVertexExists(2), true );
-   EXPECT_EQ(test_graph_1.checkIfVertexExists(4), false );
-   EXPECT_EQ(test_graph_1.checkIfVertexExists(3), true );
-}
+      simple_int_graph.addVertex(int_vertex_1);
+      simple_int_graph.addVertex(int_vertex_2);
+      simple_int_graph.addVertex(int_vertex_3);
+      simple_int_graph.addVertex(int_vertex_4);
+      simple_int_graph.addVertex(int_vertex_5);
 
-TEST_F(GraphTest, AddingVertexTest) {
+      simple_int_graph.addEdge(1,3,3);
+      simple_int_graph.addEdge(2,1,6);
+      simple_int_graph.addEdge(3,2,5);
+      simple_int_graph.addEdge(3,4,7);
+      simple_int_graph.addEdge(4,5,1);
+      simple_int_graph.addEdge(2,4,4);
+      simple_int_graph.addEdge(4,2,3);
 
-  Vertex<int, int> test_vertex_1 = Vertex<int, int>(1, 18);
-  Vertex<int, int > test_vertex_2 = Vertex<int, int>(2, 9);
-  Vertex<int, int> test_vertex_3 = Vertex<int, int>(3, 33);
+      complex_int_graph.addVertex(int_vertex_1);
+      complex_int_graph.addVertex(int_vertex_2);
+      complex_int_graph.addVertex(int_vertex_3);
+      complex_int_graph.addVertex(int_vertex_4);
+      complex_int_graph.addVertex(int_vertex_5);
+      complex_int_graph.addVertex(int_vertex_6);
+      complex_int_graph.addVertex(int_vertex_7);
+      complex_int_graph.addVertex(int_vertex_8);
+      complex_int_graph.addVertex(int_vertex_9);
+      complex_int_graph.addVertex(int_vertex_10);
 
-  test_graph_1.addVertex(test_vertex_1);
-  test_graph_1.addVertex(test_vertex_2);
-  test_graph_1.addVertex(test_vertex_3);
+      complex_int_graph.addEdge(1,2,10);
+      complex_int_graph.addEdge(2,4,2);
+      complex_int_graph.addEdge(2,5,6);
+      complex_int_graph.addEdge(3,2,7);
+      complex_int_graph.addEdge(3,5,6);
+      complex_int_graph.addEdge(3,7,4);
+      complex_int_graph.addEdge(4,1,5);
+      complex_int_graph.addEdge(4,5,8);
+      complex_int_graph.addEdge(4,8,5);
+      complex_int_graph.addEdge(5,2,4);
+      complex_int_graph.addEdge(5,6,3);
+      complex_int_graph.addEdge(6,3,5);
+      complex_int_graph.addEdge(6,7,7);
+      complex_int_graph.addEdge(6,8,6);
+      complex_int_graph.addEdge(7,3,3);
+      complex_int_graph.addEdge(7,8,9);
+      complex_int_graph.addEdge(8,4,4);
+      complex_int_graph.addEdge(8,9,5);
+      complex_int_graph.addEdge(9,10,3);
+  }
 
-  EXPECT_THROW(test_graph_1.addVertex(test_vertex_2), std::invalid_argument);
-  EXPECT_EQ((test_graph_1.getVertices()).size(), 3);
-}
+  void TearDown() override
+  {
+      
+  }
+};
 
-TEST_F(GraphTest, CheckingEdgeExistance) 
-{ 
-   Vertex<std::string, std::string> test_vertex_1 = Vertex<std::string, std::string>(1, "18");
-   Vertex<std::string, std::string> test_vertex_2 = Vertex<std::string, std::string>(2, "9");
-   Vertex<std::string, std::string> test_vertex_3 = Vertex<std::string, std::string>(3, "777");
+class StringGraphTest : public ::testing::Test {
+ protected:
+  Graph<std::string, std::string> simple_string_graph = Graph<std::string, std::string>();
+  Graph<std::string, std::string> complex_string_graph = Graph<std::string, std::string>();
 
-   Edge<std::string> e = Edge<std::string>(10, 2, "testing");
-   test_vertex_1.addToEdgeList(e);
+  void SetUp() override
+  {
+      Vertex<std::string, std::string> string_vertex_1 = Vertex<std::string, std::string>(1, "1");
+      Vertex<std::string, std::string > string_vertex_2 = Vertex<std::string, std::string>(2, "2");
+      Vertex<std::string, std::string> string_vertex_3 = Vertex<std::string, std::string>(3, "3");
+      Vertex<std::string, std::string> string_vertex_4 = Vertex<std::string, std::string>(4, "4");
+      Vertex<std::string, std::string > string_vertex_5 = Vertex<std::string, std::string>(5, "5");
+      Vertex<std::string, std::string> string_vertex_6 = Vertex<std::string, std::string>(6, "6");
+      Vertex<std::string, std::string> string_vertex_7 = Vertex<std::string, std::string>(7, "7");
+      Vertex<std::string, std::string > string_vertex_8 = Vertex<std::string, std::string>(8, "8");
+      Vertex<std::string, std::string> string_vertex_9 = Vertex<std::string, std::string>(9, "9");
+      Vertex<std::string, std::string > string_vertex_10 = Vertex<std::string, std::string>(10, "10");
 
-   test_graph_2.addVertex(test_vertex_1);
-   test_graph_2.addVertex(test_vertex_2);
-   test_graph_2.addVertex(test_vertex_3);
 
-   EXPECT_EQ(test_graph_2.checkIfEdgeExists(1,2), true );
-   EXPECT_EQ(test_graph_2.checkIfEdgeExists(2,1), false );
-   EXPECT_EQ(test_graph_2.checkIfEdgeExists(1,3), false );
-   EXPECT_EQ(test_graph_2.checkIfEdgeExists(3,2), false );
-}
+      simple_string_graph.addVertex(string_vertex_1);
+      simple_string_graph.addVertex(string_vertex_2);
+      simple_string_graph.addVertex(string_vertex_3);
+      simple_string_graph.addVertex(string_vertex_4);
+      simple_string_graph.addVertex(string_vertex_5);
 
-TEST_F(GraphTest, AddingEdgeAndWeightTest) 
-{ 
-   Vertex<std::string, std::string> test_vertex_1 = Vertex<std::string, std::string>(1, "18");
-   Vertex<std::string, std::string> test_vertex_2 = Vertex<std::string, std::string>(2, "9");
-   Vertex<std::string, std::string> test_vertex_3 = Vertex<std::string, std::string>(3, "777");
+      simple_string_graph.addEdge(1,3,"3");
+      simple_string_graph.addEdge(2,1,"6");
+      simple_string_graph.addEdge(3,2,"5");
+      simple_string_graph.addEdge(3,4,"7");
+      simple_string_graph.addEdge(4,5,"1");
+      simple_string_graph.addEdge(2,4,"4");
+      simple_string_graph.addEdge(4,2,"3");
 
-   test_graph_2.addVertex(test_vertex_1);
-   test_graph_2.addVertex(test_vertex_2);
-   test_graph_2.addVertex(test_vertex_3);
+      complex_string_graph.addVertex(string_vertex_1);
+      complex_string_graph.addVertex(string_vertex_2);
+      complex_string_graph.addVertex(string_vertex_3);
+      complex_string_graph.addVertex(string_vertex_4);
+      complex_string_graph.addVertex(string_vertex_5);
+      complex_string_graph.addVertex(string_vertex_6);
+      complex_string_graph.addVertex(string_vertex_7);
+      complex_string_graph.addVertex(string_vertex_8);
+      complex_string_graph.addVertex(string_vertex_9);
+      complex_string_graph.addVertex(string_vertex_10);
 
-   test_graph_2.addEdge(test_vertex_1.getID(),test_vertex_2.getID(), "TEST_1");
-   test_graph_2.addEdge(test_vertex_1.getID(),test_vertex_3.getID(), "TEST_2");
+      complex_string_graph.addEdge(1,2,"10");
+      complex_string_graph.addEdge(2,4,"2");
+      complex_string_graph.addEdge(2,5,"6");
+      complex_string_graph.addEdge(3,2,"7");
+      complex_string_graph.addEdge(3,5,"6");
+      complex_string_graph.addEdge(3,7,"4");
+      complex_string_graph.addEdge(4,1,"5");
+      complex_string_graph.addEdge(4,5,"8");
+      complex_string_graph.addEdge(4,8,"5");
+      complex_string_graph.addEdge(5,2,"4");
+      complex_string_graph.addEdge(5,6,"3");
+      complex_string_graph.addEdge(6,3,"5");
+      complex_string_graph.addEdge(6,7,"7");
+      complex_string_graph.addEdge(6,8,"6");
+      complex_string_graph.addEdge(7,3,"3");
+      complex_string_graph.addEdge(7,8,"9");
+      complex_string_graph.addEdge(8,4,"4");
+      complex_string_graph.addEdge(8,9,"5");
+      complex_string_graph.addEdge(9,10,"3");
+  }
 
-   EXPECT_EQ(test_graph_2.checkIfEdgeExists(1,2), true );
-   EXPECT_EQ(test_graph_2.checkIfEdgeExists(2,1), false );
-   EXPECT_EQ(test_graph_2.checkIfEdgeExists(1,3), true );
-   EXPECT_EQ(test_graph_2.checkIfEdgeExists(3,2), false );
-   EXPECT_EQ(test_graph_2.checkIfEdgeExists(3,1), false );
-   EXPECT_EQ(test_graph_2.checkIfEdgeExists(2,3), false );
-   EXPECT_EQ(test_graph_2.getEdgeWeight(1,2), "TEST_1" );
-   EXPECT_EQ(test_graph_2.getEdgeWeight(1,3), "TEST_2" );
-}
-
-TEST_F(GraphTest, UpdatingAndDeletingEdgeByID) 
-{ 
-   Vertex<std::string, std::string> test_vertex_1 = Vertex<std::string, std::string>(1, "18");
-   Vertex<std::string, std::string> test_vertex_2 = Vertex<std::string, std::string>(2, "9");
-   Vertex<std::string, std::string> test_vertex_3 = Vertex<std::string, std::string>(3, "777");
-
-   test_graph_2.addVertex(test_vertex_1);
-   test_graph_2.addVertex(test_vertex_2);
-   test_graph_2.addVertex(test_vertex_3);
-
-   test_graph_2.addEdge(1,2, "TEST_1");
-   test_graph_2.addEdge(1,3, "TEST_2");
-
-   test_graph_2.updateEdgeByID(1, 3, "zmiana_1");
-   EXPECT_EQ(test_graph_2.getEdgeWeight(1,3), "zmiana_1" );
-   test_graph_2.updateEdgeByID(1, 2, "zmiana_2");
-   EXPECT_EQ(test_graph_2.getEdgeWeight(1,2), "zmiana_2" );
-
-   EXPECT_THROW(test_graph_2.updateEdgeByID(test_vertex_2.getID(), test_vertex_1.getID(), "zmiana_2");
-, std::invalid_argument);
+  void TearDown() override
+  {
    
-   EXPECT_EQ(test_graph_2.checkIfEdgeExists(test_vertex_1.getID(), test_vertex_2.getID()), true);
-   test_graph_2.eraseEdgeByID(test_vertex_1.getID(), test_vertex_2.getID());
-   EXPECT_EQ(test_graph_2.checkIfEdgeExists(test_vertex_1.getID(), test_vertex_2.getID()), false);
-   EXPECT_EQ(test_graph_2.checkIfEdgeExists(test_vertex_1.getID(), test_vertex_3.getID()), true);
-   test_graph_2.eraseEdgeByID(test_vertex_1.getID(), test_vertex_3.getID());
-   EXPECT_EQ(test_graph_2.checkIfEdgeExists(test_vertex_1.getID(), test_vertex_3.getID()), false);
-}
+  }
+};
 
-TEST_F(GraphTest, DeletingVertexByID) 
+class FloatGraphTest : public ::testing::Test {
+ protected:
+  Graph<float, float> simple_float_graph = Graph<float, float>();
+  Graph<float, float> complex_float_graph = Graph<float, float>();
+
+  void SetUp() override
+  {
+      Vertex<float, float> float_vertex_1 = Vertex<float, float>(1, 1.0f);
+      Vertex<float, float > float_vertex_2 = Vertex<float, float>(2, 2.0f);
+      Vertex<float, float> float_vertex_3 = Vertex<float, float>(3, 3.0f);
+      Vertex<float, float> float_vertex_4 = Vertex<float, float>(4, 4.0f);
+      Vertex<float, float > float_vertex_5 = Vertex<float, float>(5, 5.0f);
+      Vertex<float, float> float_vertex_6 = Vertex<float, float>(6, 6.0f);
+      Vertex<float, float> float_vertex_7 = Vertex<float, float>(7, 7.0f);
+      Vertex<float, float > float_vertex_8 = Vertex<float, float>(8, 8.0f);
+      Vertex<float, float> float_vertex_9 = Vertex<float, float>(9, 9.0f);
+      Vertex<float, float > float_vertex_10 = Vertex<float, float>(10, 10.0f);
+
+      simple_float_graph.addVertex(float_vertex_1);
+      simple_float_graph.addVertex(float_vertex_2);
+      simple_float_graph.addVertex(float_vertex_3);
+      simple_float_graph.addVertex(float_vertex_4);
+      simple_float_graph.addVertex(float_vertex_5);
+
+      simple_float_graph.addEdge(1,3,3.0f);
+      simple_float_graph.addEdge(2,1,6.0f);
+      simple_float_graph.addEdge(3,2,5.0f);
+      simple_float_graph.addEdge(3,4,7.0f);
+      simple_float_graph.addEdge(4,5,1.0f);
+      simple_float_graph.addEdge(2,4,4.0f);
+      simple_float_graph.addEdge(4,2,3.0f);
+
+      complex_float_graph.addVertex(float_vertex_1);
+      complex_float_graph.addVertex(float_vertex_2);
+      complex_float_graph.addVertex(float_vertex_3);
+      complex_float_graph.addVertex(float_vertex_4);
+      complex_float_graph.addVertex(float_vertex_5);
+      complex_float_graph.addVertex(float_vertex_6);
+      complex_float_graph.addVertex(float_vertex_7);
+      complex_float_graph.addVertex(float_vertex_8);
+      complex_float_graph.addVertex(float_vertex_9);
+      complex_float_graph.addVertex(float_vertex_10);
+
+      complex_float_graph.addEdge(1,2,10.0f);
+      complex_float_graph.addEdge(2,4,2.0f);
+      complex_float_graph.addEdge(2,5,6.0f);
+      complex_float_graph.addEdge(3,2,7.0f);
+      complex_float_graph.addEdge(3,5,6.0f);
+      complex_float_graph.addEdge(3,7,4.0f);
+      complex_float_graph.addEdge(4,1,5.0f);
+      complex_float_graph.addEdge(4,5,8.0f);
+      complex_float_graph.addEdge(4,8,5.0f);
+      complex_float_graph.addEdge(5,2,4.0f);
+      complex_float_graph.addEdge(5,6,3.0f);
+      complex_float_graph.addEdge(6,3,5.0f);
+      complex_float_graph.addEdge(6,7,7.0f);
+      complex_float_graph.addEdge(6,8,6.0f);
+      complex_float_graph.addEdge(7,3,3.0f);
+      complex_float_graph.addEdge(7,8,9.0f);
+      complex_float_graph.addEdge(8,4,4.0f);
+      complex_float_graph.addEdge(8,9,5.0f);
+      complex_float_graph.addEdge(9,10,3.0f);
+  }
+
+  void TearDown() override
+  {
+   
+  }
+};
+
+TEST_F(IntGraphTest, CheckingVertexExistance)
 { 
-   Vertex<std::string, std::string> test_vertex_1 = Vertex<std::string, std::string>(1, "18");
-   Vertex<std::string, std::string> test_vertex_2 = Vertex<std::string, std::string>(2, "9");
-   Vertex<std::string, std::string> test_vertex_3 = Vertex<std::string, std::string>(3, "777");
-
-   test_graph_2.addVertex(test_vertex_1);
-   test_graph_2.addVertex(test_vertex_2);
-   test_graph_2.addVertex(test_vertex_3);
-
-   test_graph_2.deleteVertexByID(test_vertex_2.getID());
-   test_graph_2.deleteVertexByID(test_vertex_3.getID());
-
-   EXPECT_EQ(test_graph_2.checkIfVertexExists(1), true );
-   EXPECT_EQ(test_graph_2.checkIfVertexExists(2), false );
-   EXPECT_EQ(test_graph_2.checkIfVertexExists(3), false );
+   EXPECT_EQ(simple_int_graph.checkIfVertexExists(1), true );
+   EXPECT_EQ(simple_int_graph.checkIfVertexExists(3), true );
+   EXPECT_EQ(simple_int_graph.checkIfVertexExists(5), true );
+   EXPECT_EQ(simple_int_graph.checkIfVertexExists(6), false );
+   EXPECT_EQ(simple_int_graph.checkIfVertexExists(45), false );
 }
 
-TEST_F(GraphTest, UpdatingVertexByID) 
+TEST_F(IntGraphTest, AddingVertexTest) {
+
+  Vertex<int, int> new_vertex = Vertex<int, int>(6, 6);
+
+  simple_int_graph.addVertex(new_vertex);
+
+  EXPECT_THROW(simple_int_graph.addVertex(new_vertex), std::invalid_argument);
+  EXPECT_EQ((simple_int_graph.getVertices()).size(), 6);
+}
+
+TEST_F(StringGraphTest, CheckingEdgeExistance) 
 { 
-   Vertex<std::string, std::string> test_vertex_1 = Vertex<std::string, std::string>(1, "18");
-   Vertex<std::string, std::string> test_vertex_2 = Vertex<std::string, std::string>(2, "9");
-   Vertex<std::string, std::string> test_vertex_3 = Vertex<std::string, std::string>(3, "777");
-
-   test_graph_2.addVertex(test_vertex_1);
-   test_graph_2.addVertex(test_vertex_2);
-   test_graph_2.addVertex(test_vertex_3);
-
-   test_graph_2.updateVertex(test_vertex_2.getID(), "testownik1");
-   test_graph_2.updateVertex(test_vertex_3.getID(), "testownik2");
-
-   EXPECT_EQ(test_graph_2.getVertexByID(1)->getValue(), "18" );
-   EXPECT_EQ(test_graph_2.getVertexByID(2)->getValue(), "testownik1" );
-   EXPECT_EQ(test_graph_2.getVertexByID(3)->getValue(), "testownik2" );
+   EXPECT_EQ(simple_string_graph.checkIfEdgeExists(1,3), true );
+   EXPECT_EQ(simple_string_graph.checkIfEdgeExists(4,5), true );
+   EXPECT_EQ(simple_string_graph.checkIfEdgeExists(3,5), false );
+   EXPECT_EQ(simple_string_graph.checkIfEdgeExists(4,1), false );
 }
+
+TEST_F(StringGraphTest, AddingEdgeAndWeightTest) 
+{ 
+   EXPECT_EQ(simple_string_graph.checkIfEdgeExists(1,4), false );
+   EXPECT_EQ(simple_string_graph.checkIfEdgeExists(5,3), false );
+
+   simple_string_graph.addEdge(1,4, "TEST_1");
+   simple_string_graph.addEdge(5,3, "TEST_2");
+
+   EXPECT_EQ(simple_string_graph.checkIfEdgeExists(1,4), true );
+   EXPECT_EQ(simple_string_graph.checkIfEdgeExists(5,3), true );
+   EXPECT_EQ(simple_string_graph.getEdgeWeight(1,4), "TEST_1" );
+   EXPECT_EQ(simple_string_graph.getEdgeWeight(5,3), "TEST_2" );
+   EXPECT_THROW(simple_string_graph.getEdgeWeight(5,99);, std::invalid_argument);
+
+
+   EXPECT_THROW(simple_string_graph.addEdge(1,4, "AnotherEdgeHere");, std::invalid_argument);
+   EXPECT_THROW(simple_string_graph.addEdge(1,10, "AnotherEdgeHere");, std::invalid_argument);
+}
+
+TEST_F(StringGraphTest, UpdatingAndDeletingEdgeByID) 
+{ 
+   simple_string_graph.updateEdgeByID(1, 3, "zmiana_1");
+   EXPECT_EQ(simple_string_graph.getEdgeWeight(1,3), "zmiana_1" );
+   simple_string_graph.updateEdgeByID(2,1, "zmiana_2");
+   EXPECT_EQ(simple_string_graph.getEdgeWeight(2,1), "zmiana_2" );
+
+   EXPECT_THROW(simple_string_graph.updateEdgeByID(1,2, "zmiana_2");
+   , std::invalid_argument);
+   
+   EXPECT_EQ(simple_string_graph.checkIfEdgeExists(4,5), true);
+   simple_string_graph.eraseEdgeByID(4,5);
+   EXPECT_EQ(simple_string_graph.checkIfEdgeExists(4,5), false);
+
+   EXPECT_EQ(simple_string_graph.checkIfEdgeExists(2,1), true);
+   simple_string_graph.eraseEdgeByID(2,1);
+   EXPECT_EQ(simple_string_graph.checkIfEdgeExists(2,1), false);
+
+   EXPECT_THROW(simple_string_graph.eraseEdgeByID(2,99);, std::invalid_argument);
+}
+
+TEST_F(FloatGraphTest, DeletingVertexAndItsEdgesTest) 
+{ 
+   EXPECT_EQ(simple_float_graph.checkIfVertexExists(5), true );
+   EXPECT_EQ(simple_float_graph.checkIfEdgeExists(4,5), true);
+
+   simple_float_graph.deleteVertexByID(5);
+
+   EXPECT_EQ(simple_float_graph.checkIfVertexExists(5), false );
+   EXPECT_EQ(simple_float_graph.checkIfEdgeExists(4,5), false);
+
+   EXPECT_EQ(simple_float_graph.checkIfVertexExists(1), true );
+   EXPECT_EQ(simple_float_graph.checkIfEdgeExists(1,3), true);
+   EXPECT_EQ(simple_float_graph.checkIfEdgeExists(2,1), true);
+
+   simple_float_graph.deleteVertexByID(1);
+
+   EXPECT_EQ(simple_float_graph.checkIfVertexExists(1), false );
+   EXPECT_EQ(simple_float_graph.checkIfEdgeExists(1,3), false);
+   EXPECT_EQ(simple_float_graph.checkIfEdgeExists(2,1), false);
+
+   EXPECT_THROW(simple_float_graph.deleteVertexByID(99);, std::invalid_argument);
+}
+
+TEST_F(StringGraphTest, UpdatingVertexByID) 
+{ 
+   EXPECT_EQ(simple_string_graph.getVertexByID(1)->getValue(), "1" );
+   EXPECT_EQ(simple_string_graph.getVertexByID(4)->getValue(), "4" );
+
+   simple_string_graph.updateVertex(1, "changedValue1");
+   simple_string_graph.updateVertex(4, "changedValue2");
+
+   EXPECT_EQ(simple_string_graph.getVertexByID(1)->getValue(), "changedValue1" );
+   EXPECT_EQ(simple_string_graph.getVertexByID(4)->getValue(), "changedValue2" );
+
+   EXPECT_THROW(simple_string_graph.updateVertex(99, "except");, std::invalid_argument);
+}
+
+
+TEST_F(FloatGraphTest, DepthFirstSearchTest) 
+{ 
+   Vertex<float, float>* vToSearch1 = simple_float_graph.getVertexByID(1);
+   Vertex<float, float>* vToSearch2 = simple_float_graph.getVertexByID(2);
+   Vertex<float, float>* vToSearch4 = simple_float_graph.getVertexByID(4);
+   Vertex<float, float>* vToSearch5 = simple_float_graph.getVertexByID(5);
+   
+
+   EXPECT_TRUE(simple_float_graph.depthFirstSearch(vToSearch1, vToSearch5->getValue()));
+   EXPECT_TRUE(simple_float_graph.depthFirstSearch(vToSearch1, vToSearch2->getValue()));
+   EXPECT_TRUE(simple_float_graph.depthFirstSearch(vToSearch2, vToSearch4->getValue()));
+   EXPECT_TRUE(simple_float_graph.depthFirstSearch(vToSearch2, vToSearch1->getValue()));
+   
+   
+   EXPECT_FALSE(simple_float_graph.depthFirstSearch(vToSearch5, vToSearch4->getValue()));
+   EXPECT_FALSE(simple_float_graph.depthFirstSearch(vToSearch5, vToSearch1->getValue()));
+   EXPECT_FALSE(simple_float_graph.depthFirstSearch(vToSearch5, vToSearch2->getValue()));
+
+   vToSearch1 = complex_float_graph.getVertexByID(1);
+   vToSearch2 = complex_float_graph.getVertexByID(2);
+   Vertex<float, float>* vToSearch3 = complex_float_graph.getVertexByID(3);
+   vToSearch4 = complex_float_graph.getVertexByID(4);
+   vToSearch5 = complex_float_graph.getVertexByID(5);
+   Vertex<float, float>* vToSearch9 = complex_float_graph.getVertexByID(9);
+   Vertex<float, float>* vToSearch10 = complex_float_graph.getVertexByID(10);
+
+   EXPECT_TRUE(complex_float_graph.depthFirstSearch(vToSearch1, vToSearch5->getValue()));
+   EXPECT_TRUE(complex_float_graph.depthFirstSearch(vToSearch1, vToSearch2->getValue()));
+   EXPECT_TRUE(complex_float_graph.depthFirstSearch(vToSearch2, vToSearch4->getValue()));
+   EXPECT_TRUE(complex_float_graph.depthFirstSearch(vToSearch2, vToSearch1->getValue()));
+   
+   EXPECT_FALSE(simple_float_graph.depthFirstSearch(vToSearch9, vToSearch3->getValue()));
+   EXPECT_FALSE(simple_float_graph.depthFirstSearch(vToSearch10, vToSearch1->getValue()));
+}
+
+TEST_F(FloatGraphTest, BreadthFirstSearchTest) 
+{ 
+   Vertex<float, float>* vToSearch1 = simple_float_graph.getVertexByID(1);
+   Vertex<float, float>* vToSearch2 = simple_float_graph.getVertexByID(2);
+   Vertex<float, float>* vToSearch4 = simple_float_graph.getVertexByID(4);
+   Vertex<float, float>* vToSearch5 = simple_float_graph.getVertexByID(5);
+   
+
+   EXPECT_TRUE(simple_float_graph.breadthFirstSearch(vToSearch1, vToSearch5->getValue()));
+   EXPECT_TRUE(simple_float_graph.breadthFirstSearch(vToSearch1, vToSearch2->getValue()));
+   EXPECT_TRUE(simple_float_graph.breadthFirstSearch(vToSearch2, vToSearch4->getValue()));
+   EXPECT_TRUE(simple_float_graph.breadthFirstSearch(vToSearch2, vToSearch1->getValue()));
+   
+   
+   EXPECT_FALSE(simple_float_graph.breadthFirstSearch(vToSearch5, vToSearch4->getValue()));
+   EXPECT_FALSE(simple_float_graph.breadthFirstSearch(vToSearch5, vToSearch1->getValue()));
+   EXPECT_FALSE(simple_float_graph.breadthFirstSearch(vToSearch5, vToSearch2->getValue()));
+
+   vToSearch1 = complex_float_graph.getVertexByID(1);
+   vToSearch2 = complex_float_graph.getVertexByID(2);
+   Vertex<float, float>* vToSearch3 = complex_float_graph.getVertexByID(3);
+   vToSearch4 = complex_float_graph.getVertexByID(4);
+   vToSearch5 = complex_float_graph.getVertexByID(5);
+   Vertex<float, float>* vToSearch9 = complex_float_graph.getVertexByID(9);
+   Vertex<float, float>* vToSearch10 = complex_float_graph.getVertexByID(10);
+
+   EXPECT_TRUE(complex_float_graph.breadthFirstSearch(vToSearch1, vToSearch9->getValue()));
+   EXPECT_TRUE(complex_float_graph.breadthFirstSearch(vToSearch1, vToSearch2->getValue()));
+   EXPECT_TRUE(complex_float_graph.breadthFirstSearch(vToSearch2, vToSearch4->getValue()));
+   EXPECT_TRUE(complex_float_graph.breadthFirstSearch(vToSearch2, vToSearch1->getValue()));
+   
+   EXPECT_FALSE(complex_float_graph.breadthFirstSearch(vToSearch9, vToSearch3->getValue()));
+   EXPECT_FALSE(complex_float_graph.breadthFirstSearch(vToSearch10, vToSearch1->getValue()));
+}
+
+TEST_F(IntGraphTest, DijktraAlgorithmTest) 
+{
+   Vertex<int, int>* vToSearch1 = simple_int_graph.getVertexByID(1);
+   Vertex<int, int>* vToSearch2 = simple_int_graph.getVertexByID(2);
+   Vertex<int, int>* vToSearch4 = simple_int_graph.getVertexByID(4);
+   Vertex<int, int>* vToSearch5 = simple_int_graph.getVertexByID(5); 
+
+   EXPECT_EQ(simple_int_graph.getShortestPath(vToSearch1, vToSearch5), 11);
+   EXPECT_EQ(simple_int_graph.getShortestPath(vToSearch1, vToSearch2), 8);
+   EXPECT_EQ(simple_int_graph.getShortestPath(vToSearch2, vToSearch4), 4);
+   EXPECT_EQ(simple_int_graph.getShortestPath(vToSearch2, vToSearch1), 6);
+   
+   
+   EXPECT_EQ(simple_int_graph.getShortestPath(vToSearch5, vToSearch4), -1);
+   EXPECT_EQ(simple_int_graph.getShortestPath(vToSearch5, vToSearch1), -1);
+   EXPECT_EQ(simple_int_graph.getShortestPath(vToSearch5, vToSearch2), -1);
+   
+}
+
 
 
 

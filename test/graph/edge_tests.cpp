@@ -59,9 +59,9 @@ TEST_F(EdgeTest, SettersTest)
 
 TEST_F(EdgeTest, VisitedToggling) 
 { 
-   EXPECT_EQ(edgeInt.isVisited(), false);
-   edgeInt.setVisited();
-   EXPECT_EQ(edgeInt.isVisited(), true);
-   edgeInt.setNotVisited();
-   EXPECT_EQ(edgeInt.isVisited(), false);
+   EXPECT_EQ(edgeInt.visitedStatus.get(), false);
+   edgeInt.visitedStatus.setTrue();
+   EXPECT_EQ(edgeInt.visitedStatus.get(), true);
+   edgeInt.visitedStatus.setFalse();
+   EXPECT_EQ(edgeInt.visitedStatus.get(), false);
 }
