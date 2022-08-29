@@ -1,0 +1,36 @@
+name: C/C++ CI
+
+on:
+  pull_request:
+    branches:    
+      - main
+      - 'dryka-development'
+  push:
+    branches: 
+      - main
+      - 'dryka-development'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Run build script
+      run: |
+         chmod +x ./.github/scripts/Build.sh
+         ./.github/scripts/Build.sh
+      shell: bash
+  
+  test:
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Run test script
+      run: |
+         chmod +x ./.github/scripts/Build.sh
+         ./.github/scripts/Build.sh
+         chmod +x ./.github/scripts/Test.sh
+         ./.github/scripts/Test.sh
+      shell: bash
