@@ -16,10 +16,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - uses: actions/checkout@v3
     - name: Run build script
       run: |
-         chmod +x ./.github/scripts/Build.sh
-         ./.github/scripts/Build.sh
+         chmod +x ./scripts/Build.sh
+         ./scripts/Build.sh
       shell: bash
   
   test:
@@ -27,10 +28,11 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+    - uses: actions/checkout@v3
     - name: Run test script
       run: |
-         chmod +x ./.github/scripts/Build.sh
+         chmod +x ./scripts/Build.sh
          ./.github/scripts/Build.sh
-         chmod +x ./.github/scripts/Test.sh
-         ./.github/scripts/Test.sh
+         chmod +x ./scripts/Test.sh
+         ./scripts/Test.sh
       shell: bash
