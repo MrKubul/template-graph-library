@@ -12,6 +12,8 @@
 
 // Directed weighted graph
 
+namespace GTL {
+
 template<typename T_edge, typename T_vertex>    
 class Graph
 {
@@ -425,3 +427,5 @@ Graph<T_edge, T_vertex>::Graph()
 template<typename T_edge, typename T_vertex> 
 Graph<T_edge, T_vertex>::Graph(const std::vector<Vertex<T_edge, T_vertex>> &initial_vertices)
 : vertices(initial_vertices) {}
+
+}

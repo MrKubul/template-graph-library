@@ -1,7 +1,8 @@
 #include <gtest/gtest.h>
 #include <string>
-#include "../../src/graph/Edge.hpp"
+#include "graph_lib/directed_graph/Edge.hpp"
 
+using namespace GTL;
 
 class EdgeTest : public ::testing::Test {
  protected:

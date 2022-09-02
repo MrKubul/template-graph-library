@@ -1,6 +1,9 @@
 #include <gtest/gtest.h>
 #include <string>
-#include "../../src/graph/BinarySearchTree.hpp"
+
+#include "graph_lib/bst/BinarySearchTree.hpp"
+
+using namespace GTL;
 
 class BinarySearchTreeTest : public ::testing::Test {
  protected:

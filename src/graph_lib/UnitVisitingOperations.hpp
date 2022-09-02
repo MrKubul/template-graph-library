@@ -1,5 +1,7 @@
 #pragma once
 
+namespace GTL {
+
 class UnitVisitingOperations
 {
     private:
@@ -24,4 +26,6 @@ inline void UnitVisitingOperations::setTrue()
 inline void UnitVisitingOperations::setFalse()
 {
     visitStatus = VisitStatus::Unvisited;
+}
+
 }

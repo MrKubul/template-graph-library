@@ -1,11 +1,8 @@
 #include <gtest/gtest.h>
 #include <string>
-#include "../../src/graph/Graph.hpp"
+#include "graph_lib/directed_graph/Graph.hpp"
 
-class GraphTest : public ::testing::Test {
- protected:
-
-};
+using namespace GTL;
 
 class IntGraphTest : public ::testing::Test {
  protected:
@@ -405,10 +402,24 @@ TEST_F(IntGraphTest, DijktraAlgorithmTest)
    EXPECT_EQ(simple_int_graph.getShortestPath(vToSearch2, vToSearch4), 4);
    EXPECT_EQ(simple_int_graph.getShortestPath(vToSearch2, vToSearch1), 6);
    
-   
    EXPECT_EQ(simple_int_graph.getShortestPath(vToSearch5, vToSearch4), -1);
    EXPECT_EQ(simple_int_graph.getShortestPath(vToSearch5, vToSearch1), -1);
    EXPECT_EQ(simple_int_graph.getShortestPath(vToSearch5, vToSearch2), -1);
+
+   vToSearch1 = complex_int_graph.getVertexByID(1);
+   vToSearch4 = complex_int_graph.getVertexByID(4);
+   Vertex<int, int>* vToSearch9 = complex_int_graph.getVertexByID(9);
+   Vertex<int, int>* vToSearch7 = complex_int_graph.getVertexByID(7);
+
+   EXPECT_EQ(complex_int_graph.getShortestPath(vToSearch1, vToSearch9), 22);
+   EXPECT_EQ(complex_int_graph.getShortestPath(vToSearch1, vToSearch7), 26);
+   EXPECT_EQ(complex_int_graph.getShortestPath(vToSearch7, vToSearch4), 13);
+   EXPECT_EQ(complex_int_graph.getShortestPath(vToSearch4, vToSearch7), 18);
+   
+   
+   EXPECT_EQ(complex_int_graph.getShortestPath(vToSearch9, vToSearch1), -1);
+   EXPECT_EQ(complex_int_graph.getShortestPath(vToSearch9, vToSearch4), -1);
+   EXPECT_EQ(complex_int_graph.getShortestPath(vToSearch9, vToSearch7), -1);
    
 }
 

@@ -5,6 +5,8 @@
 
 // Vertex of weighted graph
 
+namespace GTL {
+
 template<typename T_edge, typename T_vertex>
 class Vertex
 {
@@ -71,3 +73,5 @@ void Vertex<T_edge, T_vertex>::removeFromEdgeList(const Edge<T_edge> &edge)
 template<typename T_edge, typename T_vertex>
 Vertex<T_edge, T_vertex>::Vertex(int initial_ID, const T_vertex &initial_value)
 : ID(initial_ID), value(initial_value) {}
+
+}

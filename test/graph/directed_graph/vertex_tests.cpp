@@ -1,7 +1,8 @@
 #include <gtest/gtest.h>
 #include <string>
-#include "../../src/graph/Vertex.hpp"
+#include "graph_lib/directed_graph/Vertex.hpp"
 
+using namespace GTL;
 
 class VertexTest : public ::testing::Test {
  protected:

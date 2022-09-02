@@ -1,8 +1,10 @@
 #pragma once
 
-#include "UnitVisitingOperations.hpp"
+#include "graph_lib/UnitVisitingOperations.hpp"
 
 // Edge of weighted graph
+
+namespace GTL {
 
 template <typename T_edge>
 class Edge 
@@ -59,3 +61,4 @@ template <typename T_edge>
 Edge<T_edge>::Edge(int srcID, int destID, const T_edge &w)
 : sourceVertexID(srcID), destinationVertexID(destID), weight(w) {}
 
+}

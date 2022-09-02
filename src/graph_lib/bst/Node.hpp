@@ -1,8 +1,10 @@
 #pragma once
 
-#include "UnitVisitingOperations.hpp"
+#include "graph_lib/UnitVisitingOperations.hpp"
 
 // Node of Binary search tree
+
+namespace GTL {
 
 template<typename T_node>
 class Node
@@ -35,4 +37,6 @@ template<typename T_node>
 void Node<T_node>::setValue(const T_node &val)
 {
     value = val;
+}
+
 }

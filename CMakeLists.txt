@@ -39,7 +39,7 @@ endif()
 set(SFML_DIR "lib/SFML/lib/cmake/SFML")
 find_package(SFML COMPONENTS system audio window graphics REQUIRED)
 
-target_link_libraries(APP sfml-graphics sfml-audio sfml-system -I mentoring_project/)
+target_link_libraries(APP sfml-graphics sfml-audio sfml-system )
 set_target_properties(APP PROPERTIES LINKER_LANGUAGE CXX)
 
 include_directories(src)

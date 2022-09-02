@@ -2,6 +2,8 @@
 
 // weighted Binary search tree
 
+namespace GTL {
+
 template<typename T_node>
 class BinarySearchTree
 {
@@ -196,4 +198,6 @@ template<typename T_node>
 BinarySearchTree<T_node>::~BinarySearchTree()
 {   
     if(treeSize > 0) deleteTree();
+}
+
 }
