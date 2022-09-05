@@ -1,6 +1,6 @@
 #pragma once
 
-#include "./graph2D/BinarySearchTree2D.hpp"
+#include "src/graph2D_lib/bst2D/BinarySearchTree2D.hpp"
 
 
 template<typename T_node>

@@ -15,18 +15,22 @@ class Edge
         T_edge weight;
 
     public:
+        Edge(int srcID, int destID, const T_edge &w);
         template <typename T_operator>
         friend bool operator==(const Edge<T_operator>& lhs, const Edge<T_operator>& rhs);
         UnitVisitingOperations visitedStatus;
         void setWeight(const T_edge &value);
         T_edge getWeight() const;
-        void setDestinationID(int dest_id);
-        int getDestinationID() const;
-        Edge(int srcID, int destID, const T_edge &w);
+        void setDestinationID(int destID);
+        unsigned int getDestinationID() const;
 };
 
 template <typename T_edge>
-bool operator==(const Edge<T_edge>& lhs, const Edge<T_edge>& rhs)   
+Edge<T_edge>::Edge(int srcID, int destID, const T_edge &w)
+: sourceVertexID(srcID), destinationVertexID(destID), weight(w) {}
+
+template <typename T_edge>
+bool operator==(const Edge<T_edge>& lhs, const Edge<T_edge>& rhs)
 {
     return (lhs.destinationVertexID == rhs.destinationVertexID 
             && lhs.weight == rhs.weight
@@ -46,19 +50,15 @@ T_edge Edge<T_edge>::getWeight() const
 }
 
 template <typename T_edge>
-void Edge<T_edge>::setDestinationID(int dest_id) 
+void Edge<T_edge>::setDestinationID(int destID) 
 {
-    destinationVertexID = dest_id;
+    destinationVertexID = destID;
 }
 
 template <typename T_edge>
-int Edge<T_edge>::getDestinationID() const
+unsigned int Edge<T_edge>::getDestinationID() const
 {
     return destinationVertexID;
 }
-
-template <typename T_edge>
-Edge<T_edge>::Edge(int srcID, int destID, const T_edge &w)
-: sourceVertexID(srcID), destinationVertexID(destID), weight(w) {}
 
 }

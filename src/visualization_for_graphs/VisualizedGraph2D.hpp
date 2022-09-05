@@ -1,6 +1,6 @@
 #pragma once
 
-#include "./graph2D/Graph2D.hpp"
+#include "src/graph2D_lib/directed_graph2D/Graph2D.hpp"
 
 
 template<typename T_node>

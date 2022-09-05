@@ -8,14 +8,14 @@ class UnitVisitingOperations
         enum class VisitStatus{ Visited, Unvisited };
         VisitStatus visitStatus = VisitStatus::Unvisited;
     public:
-        bool get();
+        bool get() const;
         void setTrue();
         void setFalse();
 };
 
-inline bool UnitVisitingOperations::get()
+inline bool UnitVisitingOperations::get() const
 {
-    return (this->visitStatus == VisitStatus::Visited ? true : false);
+    return (visitStatus == VisitStatus::Visited);
 }
 
 inline void UnitVisitingOperations::setTrue()

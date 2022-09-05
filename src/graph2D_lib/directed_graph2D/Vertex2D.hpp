@@ -1,6 +1,6 @@
 #pragma once
 
-#include "./graph/Vertex.hpp"
+#include "src/graph_lib/directed_graph/Vertex.hpp"
 #include "Structure2D.hpp"
 
 template<typename T_edge, typename T_vertex> 

@@ -88,7 +88,7 @@ TEST_F(BinarySearchTreeTest, DeletingTree)
   test_tree_2.insert("third-node");
   test_tree_2.insert("fourth-node");
 
-  test_tree_2.deleteTree();
+  test_tree_2.deleteSubtree();
 
   EXPECT_EQ(test_tree_2.getSize(), 0);
 }

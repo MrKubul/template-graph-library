@@ -13,9 +13,9 @@ class Node
         T_node value;
         int ID;
     public:
+        Node(const T_node &initialValue,  int initialID);
         Node<T_node> *left = nullptr, *right = nullptr, *parent = nullptr;
         UnitVisitingOperations visitedStatus;
-        Node(const T_node &initialValue,  int initialID);
         T_node getValue() const;
         void setValue(const T_node &val);
 };

@@ -10,6 +10,8 @@
 #include <unordered_set>
 #include "Vertex.hpp"
 
+//TODO ADD COPY CONSTRUTOR AND + OPERATOR
+
 // Directed weighted graph
 
 namespace GTL {
@@ -22,18 +24,21 @@ class Graph
     std::vector<int> algorithmVertexPath;
 
     public:
-    void addBidirectionalEdge(int firstVertexID, int secondVertexID, const T_edge &weight);
-    void addEdge(int fromID, int towardsID, const T_edge &weight);
-    bool checkIfEdgeExists(int fromID, int towardsID);
+    Graph(const std::vector<Vertex<T_edge, T_vertex>> &initial_vertices);
+    Graph() = default;
+
+    void addBidirectionalEdge(unsigned int firstVertexID, unsigned int secondVertexID, const T_edge &weight);
+    void addEdge(unsigned int fromID, unsigned int towardsID, const T_edge &weight);
+    bool checkIfEdgeExists(unsigned int fromID, unsigned int towardsID);
     void addVertex(const Vertex<T_edge, T_vertex> &newVertex);
-    bool checkIfVertexExists(int vertexID);
-    T_edge getEdgeWeight(int fromID, int towardsID);
-    Edge<T_edge>* getEdgeByID(int fromID, int towardsID);
-    void updateEdgeByID(int fromID, int towardsID, const T_edge &newWeight);
-    void eraseEdgeByID(int fromID, int towardsID);
-    void deleteVertexByID(int deleteID);
-    Vertex<T_edge, T_vertex>* getVertexByID(int ID);
-    void updateVertex(int updateID, const T_vertex &value);
+    bool checkIfVertexExists(unsigned int vertexID);
+    T_edge getEdgeWeight(unsigned int fromID, unsigned int towardsID);
+    Edge<T_edge>* getEdgeByID(unsigned int fromID, unsigned int towardsID);
+    void updateEdgeByID(unsigned int fromID, unsigned int towardsID, const T_edge &newWeight);
+    void eraseEdgeByID(unsigned int fromID, unsigned int towardsID);
+    void deleteVertexByID(unsigned int deleteID);
+    Vertex<T_edge, T_vertex>* getVertexByID(unsigned int ID);
+    void updateVertex(unsigned int updateID, const T_vertex &value);
     void resetVisited();
 
     Vertex<T_edge, T_vertex>* depthFirstSearch(Vertex<T_edge, T_vertex>* startVertex, const T_vertex &value);
@@ -41,27 +46,28 @@ class Graph
     T_edge getShortestPath(Vertex<T_edge, T_vertex>* const startVertex, Vertex<T_edge, T_vertex>* const target); 
     std::vector<T_edge> calculateDijsktraPaths(Vertex<T_edge, T_vertex>* const startVertex);
     int getVertexIndex(Vertex<T_edge, T_vertex>* const vertexPtr);
-    std::vector<Vertex<T_edge, T_vertex>> getVertices();
-
-    Graph();
-    Graph(const std::vector<Vertex<T_edge, T_vertex>> &initial_vertices);
+    std::vector<Vertex<T_edge, T_vertex>> getVertices() const;
 };
 
 template<typename T_edge, typename T_vertex> 
-void Graph<T_edge, T_vertex>::addBidirectionalEdge(int firstVertexID, int secondVertexID, const T_edge &weight)
+Graph<T_edge, T_vertex>::Graph(const std::vector<Vertex<T_edge, T_vertex>> &initial_vertices)
+: vertices(initial_vertices) {}
+
+template<typename T_edge, typename T_vertex> 
+void Graph<T_edge, T_vertex>::addBidirectionalEdge(unsigned int firstVertexID, unsigned int secondVertexID, const T_edge &weight)
 {
     addEdge(firstVertexID, secondVertexID,  weight);
     addEdge(secondVertexID, firstVertexID,  weight);
 }
 
 template<typename T_edge, typename T_vertex> 
-void Graph<T_edge, T_vertex>::addEdge(int fromID, int towardsID, const T_edge &weight)
+void Graph<T_edge, T_vertex>::addEdge(unsigned int fromID, unsigned int towardsID, const T_edge &weight)
 {
     if (checkIfVertexExists(fromID) && checkIfVertexExists(towardsID))
     {
         if(checkIfEdgeExists(fromID, towardsID))
         {
-            throw std::invalid_argument( "Edge already exist" );
+            return;
         }
         else 
         {
@@ -77,7 +83,7 @@ void Graph<T_edge, T_vertex>::addEdge(int fromID, int towardsID, const T_edge &w
 }
 
 template<typename T_edge, typename T_vertex> 
-bool Graph<T_edge, T_vertex>::checkIfEdgeExists(int fromID, int towardsID)
+bool Graph<T_edge, T_vertex>::checkIfEdgeExists(unsigned int fromID, unsigned int towardsID) 
 {
     for(auto &vertex: vertices)
     {
@@ -109,56 +115,55 @@ void Graph<T_edge, T_vertex>::addVertex(const Vertex<T_edge, T_vertex> &newVerte
 }
 
 template<typename T_edge, typename T_vertex> 
-bool Graph<T_edge, T_vertex>::checkIfVertexExists(int vertexID)
+bool Graph<T_edge, T_vertex>::checkIfVertexExists(unsigned int vertexID)
 {
-    bool vertexFound = false;
     for(const auto& vertex: vertices)
     {
         if(vertex.getID() == vertexID)
         {
-            vertexFound = true;
+            return true;
         }
     }   
-    return vertexFound;
+    return false;
 }
 
 template<typename T_edge, typename T_vertex> 
-T_edge Graph<T_edge, T_vertex>::getEdgeWeight(int fromID, int towardsID)
+T_edge Graph<T_edge, T_vertex>::getEdgeWeight(unsigned int fromID, unsigned int towardsID) 
 {
     return getEdgeByID(fromID, towardsID)->getWeight();
 }
 
 template<typename T_edge, typename T_vertex> 
-Edge<T_edge>* Graph<T_edge, T_vertex>::getEdgeByID(int fromID, int towardsID)
+Edge<T_edge>* Graph<T_edge, T_vertex>::getEdgeByID(unsigned int fromID, unsigned int towardsID)
 {
-    if(checkIfEdgeExists(fromID, towardsID))
+    if(!checkIfEdgeExists(fromID, towardsID))
     {
-        for(auto &vertex: vertices)
+        throw std::invalid_argument("Edge doesn't exist");
+    }
+    for(auto &vertex: vertices)
+    {
+        if(vertex.getID() == fromID)
         {
-            if(vertex.getID() == fromID)
+            for(auto &edge: vertex.getEdgeList())
             {
-                for(auto &edge: vertex.getEdgeList())
+                if(edge.getDestinationID() == towardsID)
                 {
-                    if(edge.getDestinationID() == towardsID)
-                    {
-                        return &edge;
-                    }
+                    return &edge;
                 }
             }
         }
     }
-    else throw std::invalid_argument( "Edge doesn't exist" );
-    return NULL;
+    return nullptr;
 }
 
 template<typename T_edge, typename T_vertex> 
-void Graph<T_edge, T_vertex>::updateEdgeByID(int fromID, int towardsID, const T_edge &newWeight)
+void Graph<T_edge, T_vertex>::updateEdgeByID(unsigned int fromID, unsigned int towardsID, const T_edge &newWeight)
 {
     getEdgeByID(fromID, towardsID)->setWeight(newWeight);
 }
 
 template<typename T_edge, typename T_vertex> 
-void Graph<T_edge, T_vertex>::eraseEdgeByID(int fromID, int towardsID)
+void Graph<T_edge, T_vertex>::eraseEdgeByID(unsigned int fromID, unsigned int towardsID)
 {
     for(auto &vertex: vertices)
         {
@@ -172,7 +177,7 @@ void Graph<T_edge, T_vertex>::eraseEdgeByID(int fromID, int towardsID)
 }
 
 template<typename T_edge, typename T_vertex> 
-void Graph<T_edge, T_vertex>::deleteVertexByID(int deleteID)
+void Graph<T_edge, T_vertex>::deleteVertexByID(unsigned int deleteID)
 {
     Vertex<T_edge, T_vertex>* vertToDelete = getVertexByID(deleteID);
     (vertToDelete->getEdgeList()).clear();
@@ -193,7 +198,7 @@ void Graph<T_edge, T_vertex>::deleteVertexByID(int deleteID)
 }
 
 template<typename T_edge, typename T_vertex> 
-Vertex<T_edge, T_vertex>* Graph<T_edge, T_vertex>::getVertexByID(int ID)
+Vertex<T_edge, T_vertex>* Graph<T_edge, T_vertex>::getVertexByID(unsigned int ID)
 {
     for(auto &vertex: vertices)
     {
@@ -206,7 +211,7 @@ Vertex<T_edge, T_vertex>* Graph<T_edge, T_vertex>::getVertexByID(int ID)
 }
 
 template<typename T_edge, typename T_vertex> 
-void Graph<T_edge, T_vertex>::updateVertex(int updateID, const T_vertex &value)
+void Graph<T_edge, T_vertex>::updateVertex(unsigned int updateID, const T_vertex &value)
 {
     bool checkVertex = checkIfVertexExists(updateID);
     if(checkVertex)
@@ -333,6 +338,8 @@ std::vector<T_edge> Graph<T_edge, T_vertex>::calculateDijsktraPaths(Vertex<T_edg
 
     while(true)
     {   
+        std::cout<<"checking node: "<<currentVertex->getID()<<std::endl;
+
         currentVertex->visitedStatus.setTrue();
         for(auto &edge: currentVertex->getEdgeList())
         {
@@ -343,32 +350,14 @@ std::vector<T_edge> Graph<T_edge, T_vertex>::calculateDijsktraPaths(Vertex<T_edg
             }
 
             verticesWithVisitedParent.insert(nextVertex);
-            T_edge oldDistance;
-            T_edge newConnection;
-            
-            int n_index = 0;
-            int t_index = 0;
-            int index = 0;
-            for(auto &vertex: vertices) 
-            {
-                if(&vertex == nextVertex)
-                {
-                    oldDistance = currentDistances.at(index);
-                    t_index = n_index;
+            std::cout<<"neighbour: "<<nextVertex->getID()<<std::endl;
 
-                }
-                else n_index++;
-                if(&vertex == currentVertex)
-                {
-                    newConnection = currentDistances.at(index);
-                }
-                ++index;
-            }
-            
-            const T_edge altDistance = edge.getWeight() + newConnection;
+            const T_edge oldDistance = currentDistances[getVertexIndex(nextVertex)];
+            const T_edge altDistance = currentDistances[getVertexIndex(currentVertex)] + edge.getWeight();
+                  
             if(oldDistance > altDistance)
             {
-                currentDistances[t_index] = altDistance;
+                currentDistances[getVertexIndex(nextVertex)] = altDistance;
             }
         }
         verticesWithVisitedParent.erase(currentVertex);
@@ -382,10 +371,7 @@ std::vector<T_edge> Graph<T_edge, T_vertex>::calculateDijsktraPaths(Vertex<T_edg
  
         for (Vertex<T_edge, T_vertex>* neighbour: verticesWithVisitedParent) 
         {
-            T_edge distToCheck;
-
-            int index = getVertexIndex(startVertex);
-            distToCheck = currentDistances.at(index);
+            T_edge distToCheck = currentDistances.at(getVertexIndex(neighbour));
  
             if(distToCheck < minDist)
             {
@@ -395,8 +381,10 @@ std::vector<T_edge> Graph<T_edge, T_vertex>::calculateDijsktraPaths(Vertex<T_edg
         }
         currentVertex = nextCurrentVertex;
     }
+    std::cout<<std::endl;
     return currentDistances;
 }
+
 template<typename T_edge, typename T_vertex> 
 int Graph<T_edge, T_vertex>::getVertexIndex(Vertex<T_edge, T_vertex>* const vertexPtr)
 {
@@ -413,19 +401,9 @@ int Graph<T_edge, T_vertex>::getVertexIndex(Vertex<T_edge, T_vertex>* const vert
 }
 
 template<typename T_edge, typename T_vertex> 
-std::vector<Vertex<T_edge, T_vertex>> Graph<T_edge, T_vertex>::getVertices()
+std::vector<Vertex<T_edge, T_vertex>> Graph<T_edge, T_vertex>::getVertices() const
 {
     return vertices;
 }
-
-template<typename T_edge, typename T_vertex> 
-Graph<T_edge, T_vertex>::Graph()
-{
-
-}
-
-template<typename T_edge, typename T_vertex> 
-Graph<T_edge, T_vertex>::Graph(const std::vector<Vertex<T_edge, T_vertex>> &initial_vertices)
-: vertices(initial_vertices) {}
 
 }

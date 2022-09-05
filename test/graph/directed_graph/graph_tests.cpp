@@ -255,10 +255,6 @@ TEST_F(StringGraphTest, AddingEdgeAndWeightTest)
    EXPECT_EQ(simple_string_graph.getEdgeWeight(1,4), "TEST_1" );
    EXPECT_EQ(simple_string_graph.getEdgeWeight(5,3), "TEST_2" );
    EXPECT_THROW(simple_string_graph.getEdgeWeight(5,99);, std::invalid_argument);
-
-
-   EXPECT_THROW(simple_string_graph.addEdge(1,4, "AnotherEdgeHere");, std::invalid_argument);
-   EXPECT_THROW(simple_string_graph.addEdge(1,10, "AnotherEdgeHere");, std::invalid_argument);
 }
 
 TEST_F(StringGraphTest, UpdatingAndDeletingEdgeByID) 
@@ -412,10 +408,10 @@ TEST_F(IntGraphTest, DijktraAlgorithmTest)
    Vertex<int, int>* vToSearch7 = complex_int_graph.getVertexByID(7);
 
    EXPECT_EQ(complex_int_graph.getShortestPath(vToSearch1, vToSearch9), 22);
+   EXPECT_EQ(complex_int_graph.getShortestPath(vToSearch1, vToSearch4), 12);
    EXPECT_EQ(complex_int_graph.getShortestPath(vToSearch1, vToSearch7), 26);
-   EXPECT_EQ(complex_int_graph.getShortestPath(vToSearch7, vToSearch4), 13);
+   EXPECT_EQ(complex_int_graph.getShortestPath(vToSearch7, vToSearch4), 12);
    EXPECT_EQ(complex_int_graph.getShortestPath(vToSearch4, vToSearch7), 18);
-   
    
    EXPECT_EQ(complex_int_graph.getShortestPath(vToSearch9, vToSearch1), -1);
    EXPECT_EQ(complex_int_graph.getShortestPath(vToSearch9, vToSearch4), -1);

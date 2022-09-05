@@ -1,6 +1,8 @@
-#pragma once 
+#pragma once
 
-//everything class needs to be 2D
+#include <memory>
+
+//everything class needs to have to be 2D
 
 class Structure2D
 {
@@ -16,20 +18,27 @@ class Structure2D
                 y = initialY;
             }
         };
-        Coordinates coordinates;
+        std::unique_ptr<Coordinates> coordinates;
     public:
-        Coordinates getCoordinates();
+        Structure2D(const int &initialX, const int &initalY);
+        Coordinates getCoordinates() const;
         void setCoordinates(const int &targetX, const int &targetY);
 
 };
 
-Structure2D::Coordinates Structure2D::getCoordinates()
+Structure2D::Structure2D(const int &initialX, const int &initialY)
 {
-    return coordinates;
+    coordinates = std::make_unique<Coordinates>(initialX, initialY);
+}
+
+Structure2D::Coordinates Structure2D::getCoordinates() const
+{
+    return *coordinates;
 }
 
 void Structure2D::setCoordinates(const int &targetX, const int &targetY)
 {
-    coordinates.x = targetX;
-    coordinates.y = targetY;
+    coordinates->x = targetX;
+    coordinates->y = targetY;
 }
+
