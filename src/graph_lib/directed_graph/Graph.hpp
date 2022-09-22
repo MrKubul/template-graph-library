@@ -10,8 +10,6 @@
 #include <unordered_set>
 #include "Vertex.hpp"
 
-//TODO ADD COPY CONSTRUTOR AND + OPERATOR
-
 // Directed weighted graph
 
 namespace GTL {
@@ -21,7 +19,6 @@ class Graph
 {
     private:
     std::vector<Vertex<T_edge, T_vertex>> vertices;
-    std::vector<int> algorithmVertexPath;
 
     public:
     Graph(const std::vector<Vertex<T_edge, T_vertex>> &initial_vertices);

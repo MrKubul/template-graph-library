@@ -2,17 +2,17 @@
 
 #include <memory>
 
-//everything class needs to have to be 2D
+namespace GTL{
 
 class Structure2D
 {
     private:
         struct Coordinates
             {
-                int x;
-                int y;
+                float x;
+                float y;
 
-            Coordinates(int initialX, int initialY)
+            Coordinates(float initialX, float initialY)
             {       
                 x = initialX;
                 y = initialY;
@@ -20,15 +20,15 @@ class Structure2D
         };
         std::unique_ptr<Coordinates> coordinates;
     public:
-        Structure2D(const int &initialX, const int &initalY);
+        Structure2D(const float initialX, const float initalY);
         Coordinates getCoordinates() const;
-        void setCoordinates(const int &targetX, const int &targetY);
+        void setCoordinates(const float targetX, const float targetY);
 
 };
 
-Structure2D::Structure2D(const int &initialX, const int &initialY)
+Structure2D::Structure2D(const float initialX, const float initialY)
 {
-    coordinates = std::make_unique<Coordinates>(initialX, initialY);
+    auto coordinates = std::make_unique<Coordinates>(initialX, initialY);
 }
 
 Structure2D::Coordinates Structure2D::getCoordinates() const
@@ -36,9 +36,10 @@ Structure2D::Coordinates Structure2D::getCoordinates() const
     return *coordinates;
 }
 
-void Structure2D::setCoordinates(const int &targetX, const int &targetY)
+void Structure2D::setCoordinates(const float targetX, const float targetY)
 {
     coordinates->x = targetX;
     coordinates->y = targetY;
+}
 }
 

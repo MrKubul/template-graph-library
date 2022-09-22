@@ -10,7 +10,7 @@ Button::Button(std::string initialText, sf::Vector2f initialSize, ActionType ini
     buttonType = initialButtonType;
     buttonText.setString(initialText);
     buttonText.setColor(sf::Color(0, 0, 0, 255));
-    buttonText.setCharacterSize(11);
+    buttonText.setCharacterSize(9);
     buttonShape.setSize(initialSize);
     buttonShape.setFillColor(sf::Color(211, 211, 211, 255));
 };
@@ -24,8 +24,8 @@ void Button::setPosition(sf::Vector2f newPosition)
 {
     buttonShape.setPosition(newPosition);
 
-    float xPos = (newPosition.x + buttonShape.getGlobalBounds().width / 2) - (buttonText.getGlobalBounds().width / 2);
-    float yPos = (newPosition.y + buttonShape.getGlobalBounds().height / 2) - (buttonText.getGlobalBounds().height / 2);
+    float xPos = (newPosition.x + buttonShape.getLocalBounds().width / 2) - (buttonText.getLocalBounds().width / 2);
+    float yPos = (newPosition.y + buttonShape.getLocalBounds().height / 2) - (buttonText.getLocalBounds().height / 2);
 
     buttonText.setPosition(xPos, yPos);
 };
@@ -46,14 +46,26 @@ void Button::drawTo(sf::RenderWindow &window)
     window.draw(buttonText);
 }
 
-bool Button::isClicked(const sf::Mouse mouse, const float x, const float y) const
+bool Button::isClicked(sf::RenderWindow &window) const
 {
-    if(!mouse.isButtonPressed(sf::Mouse::Left))
+    if(!sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
         return false;
     }
     else
     {
-        if(x)
+        float mouseX = sf::Mouse::getPosition(window).x;
+        float mouseY = sf::Mouse::getPosition(window).y;
+
+        float buttonX = buttonShape.getPosition().x;
+        float buttonY = buttonShape.getPosition().y;
+        float buttonXBound = buttonX + buttonShape.getLocalBounds().width;
+        float buttonYBound = buttonY + buttonShape.getLocalBounds().height;
+
+        if(mouseX > buttonX && mouseX < buttonXBound && mouseY > buttonY && mouseY < buttonYBound)
+        {
+            return true;
+        }
+        return false;
     }
 }

@@ -19,5 +19,5 @@ class Button {
         void setBackColor(sf::Color &color);
         void setText(std::string message);
         void drawTo(sf::RenderWindow &window);
-        bool isClicked(const sf::Mouse mouse, const float x, const float y) const;
+        bool isClicked(sf::RenderWindow &window) const;
 };

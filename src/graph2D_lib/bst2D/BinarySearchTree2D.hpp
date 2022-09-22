@@ -3,6 +3,7 @@
 #include "src/graph_lib/bst/BinarySearchTree.hpp"
 #include "Node2D.hpp"
 
+namespace GTL{
 
 template<typename T_node>
 class BinarySearchTree2D : public BinarySearchTree, public Structure2D
@@ -22,4 +23,5 @@ BinarySearchTree2D<T_node>::BinarySearchTree2D()
 template<typename T_node>
 BinarySearchTree2D<T_node>::~BinarySearchTree2D()
 {
+}
 }
