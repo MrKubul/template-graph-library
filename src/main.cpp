@@ -1,6 +1,5 @@
 #include <SFML/Graphics.hpp>
-
-#include "src/gui/UserInterface.hpp"
+#include "gui/UserInterface.hpp"
 
 int main()
 {

@@ -3,7 +3,7 @@
 Button::Button()
 {
 
-};
+}
 
 Button::Button(std::string initialText, sf::Vector2f initialSize, ActionType initialButtonType)
 {
@@ -13,7 +13,7 @@ Button::Button(std::string initialText, sf::Vector2f initialSize, ActionType ini
     buttonText.setCharacterSize(9);
     buttonShape.setSize(initialSize);
     buttonShape.setFillColor(sf::Color(211, 211, 211, 255));
-};
+}
 
 ActionType Button::getActionType() const
 {
@@ -28,17 +28,17 @@ void Button::setPosition(sf::Vector2f newPosition)
     float yPos = (newPosition.y + buttonShape.getLocalBounds().height / 2) - (buttonText.getLocalBounds().height / 2);
 
     buttonText.setPosition(xPos, yPos);
-};
+}
 
 void Button::setBackColor(sf::Color &color)
 {
     buttonShape.setFillColor(color);
-};
+}
 
 void Button::setText(std::string message)
 {
     buttonText.setString(message);
-};
+}
 
 void Button::drawTo(sf::RenderWindow &window)
 {

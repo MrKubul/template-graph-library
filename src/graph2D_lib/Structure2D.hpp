@@ -1,7 +1,5 @@
 #pragma once
 
-#include <memory>
-
 namespace GTL{
 
 class Structure2D
@@ -18,9 +16,10 @@ class Structure2D
                 y = initialY;
             }
         };
-        std::unique_ptr<Coordinates> coordinates;
+        Coordinates* coordinates;
     public:
         Structure2D(const float initialX, const float initalY);
+        ~Structure2D();
         Coordinates getCoordinates() const;
         void setCoordinates(const float targetX, const float targetY);
 
@@ -28,7 +27,12 @@ class Structure2D
 
 Structure2D::Structure2D(const float initialX, const float initialY)
 {
-    auto coordinates = std::make_unique<Coordinates>(initialX, initialY);
+    coordinates = new Coordinates(initialX, initialY);
+}
+
+Structure2D::~Structure2D()
+{
+    delete coordinates;
 }
 
 Structure2D::Coordinates Structure2D::getCoordinates() const

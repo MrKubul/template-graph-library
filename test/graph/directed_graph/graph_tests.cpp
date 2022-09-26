@@ -231,7 +231,7 @@ TEST_F(IntGraphTest, AddingVertexTest) {
   simple_int_graph.addVertex(new_vertex);
 
   EXPECT_THROW(simple_int_graph.addVertex(new_vertex), std::invalid_argument);
-  EXPECT_EQ((simple_int_graph.getVertices()).size(), 6);
+  EXPECT_EQ((simple_int_graph.getVertices())->size(), 6);
 }
 
 TEST_F(StringGraphTest, CheckingEdgeExistance) 
